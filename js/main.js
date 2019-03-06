@@ -3,7 +3,7 @@ $(document).ready(
     //The function that does the stuff.
     function () {
         //Make the AJAX call
-        $.ajax('http://api.tvmaze.com/singlesearch/shows?q=the+magicians&embed=episodes', {
+        $.ajax('http://api.tvmaze.com/search/shows?q=submit-show', {
             method: "GET",
             dataType: "json"
         })
@@ -11,6 +11,7 @@ $(document).ready(
             .done(
                 function (data) {
                     //Add the name
+                    $('#submit-show').bind('click',function(event){})
                     $('#name').append(data.name);
                     //Add the episodes
                     data._embedded.episodes.forEach(function (episode) {
@@ -21,6 +22,11 @@ $(document).ready(
                             '<td>' + episode.summary + '</td>' +
                             +' </tr>')
             })
+                    $("button").click(function(){
+                        $.ajax({url: "http://api.tvmaze.com/search/shows?q=submit-show", success: function(data){
+                                $("#div1").html(data);
+                            }});
+                    });
         })
     }
 )
